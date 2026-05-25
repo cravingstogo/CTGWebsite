@@ -699,6 +699,23 @@ footer span {
   .navbar.scrolled .nav-links a { color: var(--text) !important; }
 }
 
+.order-btn {
+  background: var(--pink);
+  color: white !important;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 13px;
+  transition: background 0.2s, transform 0.2s !important;
+}
+
+.order-btn:hover {
+  background: var(--pink-light) !important;
+  transform: translateY(-2px);
+}
+
+.order-btn::after { display: none !important; }
+
+.navbar.scrolled .order-btn { color: white !important; }
 </style>
 </head>
 <body>
@@ -728,6 +745,7 @@ footer span {
       </div>
     </div>
     <a href="#contact">Contact</a>
+	<a href="https://www.foodpanda.ph/restaurant/fjnx/cravings-to-go-bf-resort-drive" target="_blank" class="order-btn">Order Online 🛵</a>
   </div>
 </nav>
 
