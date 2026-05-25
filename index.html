@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cravings To Go</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/png" href="CTGLogo.jpg">
+
+<meta name="description" content="Cravings To Go — Soft Serve Churros, Frozen Yogurt, and Hot Drinks in Las Piñas.">
+<meta property="og:title" content="Cravings To Go">
+<meta property="og:description" content="Soft Serve Churros, Frozen Yogurt, and Hot Drinks in Las Piñas.">
+
+<style>
+:root {
+  --pink:       #E8175A;
+  --pink-light: #FF4D8B;
+  --pink-pale:  #FFF0F5;
+  --pink-mid:   #FFD6E7;
+  --cream:      #FDF8F3;
+  --dark:       #1A0A0F;
+  --text:       #3D1A26;
+  --muted:      #9B6B7A;
+  --white:      #FFFFFF;
+  --nav-h:      68px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  height: var(--nav-h);
+  background: background: rgba(253, 240, 245, 0.75);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-bottom: 1px solid rgba(232,23,90,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(20px, 5vw, 60px);
+  z-index: 1000;
+  transition: box-shadow 0.3s;
+}
+.navbar.scrolled {
+  box-shadow: 0 4px 30px rgba(232,23,90,0.1);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo .logo {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--pink-mid);
+}
+.nav-logo .wordmark {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--pink);
+  letter-spacing: 0.3px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.nav-links a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--pink);
+  transition: width 0.25s ease;
+}
+.nav-links a:hover { color: var(--pink); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-links a { color: rgba(255, 255, 255, 0.85); }
+.nav-logo .wordmark { color: var(--pink-light); }
+
+/* Scrolled state — light background, dark links */
+.navbar.scrolled {
+  background: rgba(253, 240, 245, 0.85);
+  border-bottom: 1px solid rgba(232, 23, 90, 0.18);
+}
+
+.navbar.scrolled .nav-links a {
+  color: var(--text);
+}
+
+.navbar.scrolled .wordmark {
+  color: var(--pink);
+}
+
+/* Dropdown */
+.dropdown { position: relative; }
+.dropdown-content {
+  position: absolute;
+  top: calc(100% + 16px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(30,0,15,0.12);
+  border: 1px solid rgba(232,23,90,0.1);
+  min-width: 210px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  padding: 8px 0;
+  z-index: 1001;
+}
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.dropdown-content a {
+  display: block;
+  padding: 10px 20px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+}
+.dropdown-content a::after { display: none; }
+.dropdown-content a:hover {
+  background: var(--pink-pale);
+  color: var(--pink);
+}
+
+/* ── HERO ── */
+#home {
+  min-height: 100vh;
+  padding-top: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--dark);
+}
+
+/* Layered radial background */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 50%, rgba(232,23,90,0.22) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(255,77,139,0.15) 0%, transparent 60%),
+    linear-gradient(rgba(26,10,15,0.78), rgba(26,10,15,0.78)),
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+/* Dot grid overlay */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Decorative blobs */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.18;
+  z-index: 0;
+  animation: blobFloat 10s ease-in-out infinite alternate;
+}
+.blob-1 {
+  width: 500px; height: 500px;
+  background: var(--pink);
+  top: -100px; right: -100px;
+  animation-delay: 0s;
+}
+.blob-2 {
+  width: 350px; height: 350px;
+  background: #FF9ECB;
+  bottom: -80px; left: 10%;
+  animation-delay: -4s;
+}
+@keyframes blobFloat {
+  from { transform: translateY(0) scale(1); }
+  to   { transform: translateY(-30px) scale(1.06); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 60px 24px;
+  max-width: 760px;
+  animation: heroIn 1s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--pink-light);
+  margin-bottom: 20px;
+  display: block;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(46px, 8vw, 86px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--pink-light);
+}
+
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(17px, 2.5vw, 22px);
+  font-weight: 300;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 42px;
+  line-height: 1.6;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--pink);
+  color: white;
+  text-decoration: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: 50px;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  box-shadow: 0 8px 30px rgba(232,23,90,0.4);
+}
+.hero-cta:hover {
+  background: var(--pink-light);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(232,23,90,0.5);
+}
+.hero-cta svg {
+  width: 16px; height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.2s;
+}
+.hero-cta:hover svg { transform: translateY(2px); }
+
+/* ── SECTION WRAPPER ── */
+section { padding: clamp(60px, 10vw, 110px) clamp(20px, 5vw, 60px); }
+
+.section-header {
+  text-align: center;
+  margin-bottom: 54px;
+}
+.section-eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.15;
+}
+.section-title em {
+  font-style: italic;
+  color: var(--pink);
+}
+.section-divider {
+  width: 48px; height: 2px;
+  background: linear-gradient(90deg, var(--pink), var(--pink-light));
+  margin: 18px auto 0;
+  border-radius: 2px;
+}
+
+/* ── MENU ── */
+#menu {
+  background: var(--cream);
+}
+
+.category-block {
+  max-width: 1140px;
+  margin: 0 auto 72px;
+}
+.category-block:last-child { margin-bottom: 0; }
+
+.category-label {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--pink);
+  text-align: center;
+  margin-bottom: 32px;
+  position: relative;
+}
+.category-label::before,
+.category-label::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: clamp(30px, 8%, 80px);
+  height: 1px;
+  background: var(--pink-mid);
+}
+.category-label::before { right: calc(50% + 120px); }
+.category-label::after  { left:  calc(50% + 120px); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+/* Menu Card */
+.menu-card {
+  background: white;
+  border-radius: 18px;
+  padding: 28px 24px;
+  border: 1px solid rgba(232,23,90,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.menu-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--pink), var(--pink-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(232,23,90,0.12);
+  border-color: rgba(232,23,90,0.15);
+}
+.menu-card:hover::before {
+  transform: scaleX(1);
+}
+
+.card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.card-desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 18px;
+}
+.card-price {
+  display: inline-block;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--pink);
+}
+
+/* ── CONTACT ── */
+#contact {
+  background: var(--dark);
+  position: relative;
+  overflow: hidden;
+}
+#contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 0% 100%, rgba(232,23,90,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 100% 0%, rgba(255,77,139,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+#contact::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+#contact .section-title { color: white; }
+#contact .section-eyebrow { color: var(--pink-light); }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 36px 28px;
+  backdrop-filter: blur(12px);
+  transition: background 0.25s, border-color 0.25s;
+}
+.contact-card:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(232,23,90,0.35);
+}
+
+.contact-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(232,23,90,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.contact-card-icon svg {
+  width: 22px; height: 22px;
+  stroke: var(--pink-light);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 10px;
+}
+.contact-card p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.map-container {
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.map-container iframe {
+  display: block;
+  width: 100%;
+  height: 220px;
+  border: 0;
+}
+
+.fb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  background: rgba(24,119,242,0.15);
+  border: 1px solid rgba(24,119,242,0.3);
+  color: #7EB5FF;
+  text-decoration: none;
+  padding: 11px 20px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.fb-link:hover {
+  background: rgba(24,119,242,0.25);
+  border-color: rgba(24,119,242,0.5);
+}
+.fb-link img {
+  width: 18px; height: 18px;
+}
+
+.hours-pill {
+  display: inline-block;
+  background: rgba(232,23,90,0.18);
+  border: 1px solid rgba(232,23,90,0.3);
+  color: var(--pink-light);
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 50px;
+  margin-top: 16px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+}
+
+.hours-img-wrap {
+  margin-top: 18px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.hours-img-wrap img {
+  width: 100%;
+  display: block;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  padding: 28px 20px;
+}
+footer p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.5px;
+}
+footer span {
+  color: var(--pink);
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── MOBILE ── */
+@media (max-width: 700px) {
+  .nav-links { gap: 18px; }
+  .nav-links a { font-size: 12px; }
+  .dropdown-content { left: 50%; transform: translateX(-50%) translateY(6px); }
+  .dropdown:hover .dropdown-content { transform: translateX(-50%) translateY(0); }
+  .category-label::before,
+  .category-label::after { display: none; }
+}
+@media (max-width: 480px) {
+  .nav-links { display: none; }
+}
+
+#loader {
+  position: fixed; inset: 0;
+  background: var(--cream);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease;
+}
+.loader-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px; color: var(--text);
+  margin-top: 15px;
+  animation: fadeText 1.5s ease-in-out infinite;
+}
+.loader-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; color: var(--pink);
+  margin-top: 5px; letter-spacing: 2px;
+}
+@keyframes floatIce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes fadeText {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+.chat-btn {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  background: var(--pink);
+  color: white;
+  font-size: 22px;
+  width: 55px; height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  z-index: 1000;
+  animation: floatButton 3s ease-in-out infinite;
+  transition: transform 0.2s, background 0.2s;
+}
+.chat-btn:hover {
+  background: var(--pink-light);
+  transform: translateY(-4px) scale(1.08);
+}
+@keyframes floatButton {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div style="font-size:60px; animation:floatIce 2s ease-in-out infinite;">🍦</div>
+  <p class="loader-text">Cravings To Go is getting ready.. 🍓</p>
+  <span class="loader-brand">Cravings To Go</span>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="#home" class="nav-logo">
+    <img src="CTGLogo.jpg" class="logo" alt="Cravings To Go logo">
+    <span class="wordmark">Cravings To Go</span>
+  </a>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <div class="dropdown">
+      <a href="#menu">Menu ▾</a>
+      <div class="dropdown-content">
+        <a href="#SoftServeChurro">Soft Serve Churros</a>
+        <a href="#CChurros">Classic Churros</a>
+        <a href="#FrozenYogurt">Frozen Yogurt</a>
+        <a href="#HotDrink">Hot Drinks</a>
+      </div>
+    </div>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Las Piñas · Open until Midnight</span>
+    <h1 class="hero-title">Every Craving,<br><em>Satisfied.</em></h1>
+    <p class="hero-sub">Fresh churros, creamy soft serve, and frozen yogurt<br>crafted for sweet moments worth sharing.</p>
+    <a href="#menu" class="hero-cta">
+      Explore the Menu
+      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">What we serve</span>
+    <h2 class="section-title">Our <em>Menu</em></h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <!-- Soft Serve Churros -->
+  <div class="category-block" id="SoftServeChurro">
+    <div class="category-label reveal">Soft Serve Churros</div>
+    <div class="card-grid">
+      <div class="menu-card reveal">
+        <div class="card-name">Tiramisu Churros</div>
+        <div class="card-desc">Vanilla soft serve drizzled with rich Tiramisu sauce.</div>
+        <span class="card-price">₱180</span>
+      </div>
+      <div class="menu-card reveal">
+        <div class="card-name">Strawberry Cake</div>
+        <div class="card-desc">Vanilla soft serve with dreamy strawberry cake icing.</div>
+        <span class="card-price">₱180</span>
+      </div>
+      <div class="menu-card reveal">
+        <div class="card-name">Crunchy</div>
+        <div class="card-desc">Vanilla soft serve drizzled with crunchy chocolate sauce.</div>
+        <span class="card-price">₱180</span>
+      </div>
+      <div class="menu-card reveal">
+        <div class="card-name">Biscoff Cookie Butter</div>
+        <div class="card-desc">Vanilla soft serve with Biscoff sauce and crunchy cookie crumbs.</div>
+        <span class="card-price">₱180</span>
+      </div>
+      <div class="menu-card reveal">
+        <div class="card-name">Cookies &amp; Cream</div>
+        <div class="card-desc">Vanilla soft serve with cookies and cream sauce.</div>
+        <span class="card-price">₱180</span>
+      </div>
+      <div class="menu-card reveal">
+        <div class="card-name">Chocolate Peanut Butter</div>
+        <div class="card-desc">Vanilla soft serve with hazelnut chocolate sauce and peanut crumbs.</div>
+        <span class="card-price">₱180</span>
+      </div>
+      <div class="menu-card reveal">
+        <div class="card-name">Nutella</div>
+        <div class="card-desc">Vanilla soft serve generously drizzled with Nutella.</div>
+        <span class="card-price">₱180</span>
+      </div>
+      <div class="menu-card reveal">
+        <div class="card-name">Matcha Cream</div>
+        <div class="card-desc">Vanilla soft serve with silky creamy matcha sauce.</div>
+        <span class="card-price">₱180</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Classic Churros -->
+  <div class="category-block" id="CChurros">
+    <div class="category-label reveal">Classic Churros</div>
+    <div class="card-grid">
+      <div class="menu-card reveal">
+        <div class="card-name">Classic Churros</div>
+        <div class="card-desc">4 pieces — golden, crispy outside, soft and fluffy inside, dusted with cinnamon sugar.</div>
+        <span class="card-price">₱150</span>
+      </div>
+      <div class="menu-card reveal">
+        <div class="card-name">Party Box Churros</div>
+        <div class="card-desc">10 pieces of classic churros with three delicious dipping sauces — perfect for sharing!</div>
+        <span class="card-price">₱345</span>
+      </div>
+      <div class="menu-card reveal">
+        <div class="card-name">Premium Churros</div>
+        <div class="card-desc">4 pieces coated in rich sauce and loaded with delicious toppings in every bite.</div>
+        <span class="card-price">₱175</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Frozen Yogurt -->
+  <div class="category-block" id="FrozenYogurt">
+    <div class="category-label reveal">Frozen Yogurt</div>
+    <div class="card-grid">
+      <div class="menu-card reveal">
+        <div class="card-name">Frozen Yogurt — 1 Topping</div>
+        <div class="card-desc">Smooth, creamy and perfectly balanced — a guilt-free dessert in every spoonful.</div>
+        <span class="card-price">₱160</span>
+      </div>
+      <div class="menu-card reveal">
+        <div class="card-name">Frozen Yogurt — 4 Toppings</div>
+        <div class="card-desc">All the creaminess, loaded up with four of your favourite toppings.</div>
+        <span class="card-price">₱160</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hot Drinks -->
+  <div class="category-block" id="HotDrink">
+    <div class="category-label reveal">Hot Drinks</div>
+    <div class="card-grid">
+      <div class="menu-card reveal">
+        <div class="card-name">Hot Milo</div>
+        <div class="card-desc">The all-time favourite comfort drink — rich, malty, and chocolatey, served hot.</div>
+        <span class="card-price">₱95</span>
+      </div>
+      <div class="menu-card reveal">
+        <div class="card-name">Hot Chocolate</div>
+        <div class="card-desc">Hot creamy chocolate topped with soft, melty marshmallows.</div>
+        <span class="card-price">₱95</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Find Us</span>
+    <h2 class="section-title">Come <em>Visit</em></h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="contact-grid">
+    <!-- Location -->
+    <div class="contact-card reveal">
+      <div class="contact-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <h3>Location</h3>
+      <p>JB Tan St., BF Resort Drive, BF Resort — in front of Athefhasan Shawarma<br>Las Piñas City, Philippines</p>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!4v1773578358841!6m8!1m7!1sBbEdFutBPc_144LMPzmNJw!2m2!1d14.43097326632042!2d120.9897448290475!3f101.32186588934681!4f-8.531139913415245!5f0.7820865974627469" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+
+    <!-- Facebook -->
+    <div class="contact-card reveal">
+      <div class="contact-card-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </div>
+      <h3>Follow Us</h3>
+      <p>Stay updated on new flavours, promos, and sweet announcements on Facebook.</p>
+      <a href="https://www.facebook.com/cravingsfortogo" target="_blank" class="fb-link">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+        @cravingsfortogo
+      </a>
+      <div class="hours-img-wrap" style="margin-top:18px;">
+        <img src="CTGSoc.jpg" alt="Cravings To Go Facebook cover">
+      </div>
+    </div>
+
+    <!-- Hours -->
+    <div class="contact-card reveal">
+      <div class="contact-card-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3>Opening Hours</h3>
+      <p>We're open every day — come anytime your craving strikes!</p>
+      <div class="hours-pill">10:00 AM – 12:00 Midnight</div>
+      <div class="hours-img-wrap">
+        <img src="CTGTime.jpg" alt="Opening hours schedule">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Cravings To Go</span> · Las Piñas City, Philippines · Made with ♥</p>
+</footer>
+
+<script>
+// Navbar scroll shadow
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+
+// Loader
+window.addEventListener("load", () => {
+  const loader = document.getElementById("loader");
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    setTimeout(() => loader.style.display = "none", 600);
+  }, 1800);
+});
+
+// Mobile toggle
+function toggleMenu() {
+  document.querySelector(".nav-links").classList.toggle("show");
+}
+</script>
+</body>
+<a href="https://www.facebook.com/cravingsfortogo" class="chat-btn" target="_blank">💬</a>
+</html>
