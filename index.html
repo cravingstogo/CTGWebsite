@@ -715,7 +715,41 @@ footer span {
 
 .order-btn::after { display: none !important; }
 
-.navbar.scrolled .order-btn { color: white !important; }
+.ticker-wrap {
+  width: 100%;
+  background: var(--pink);
+  overflow: hidden;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.ticker {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: ticker 18s linear infinite;
+}
+
+.ticker span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: white;
+  white-space: nowrap;
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-wrap:hover .ticker {
+  animation-play-state: paused;
+}
+
 </style>
 </head>
 <body>
@@ -764,7 +798,22 @@ footer span {
     </a>
   </div>
 </section>
-
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>✦ Soft Serve Churros</span>
+    <span>· Frozen Yogurt</span>
+    <span>· Classic Churros</span>
+    <span>· Hot Drinks</span>
+    <span>· Open Until Midnight</span>
+    <span>· Las Piñas City</span>
+    <span>✦ Soft Serve Churros</span>
+    <span>· Frozen Yogurt</span>
+    <span>· Classic Churros</span>
+    <span>· Hot Drinks</span>
+    <span>· Open Until Midnight</span>
+    <span>· Las Piñas City</span>
+  </div>
+</div>
 <!-- MENU -->
 <section id="menu">
   <div class="section-header reveal">
@@ -876,7 +925,22 @@ footer span {
     </div>
   </div>
 </section>
-
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>✦ Soft Serve Churros</span>
+    <span>· Frozen Yogurt</span>
+    <span>· Classic Churros</span>
+    <span>· Hot Drinks</span>
+    <span>· Open Until Midnight</span>
+    <span>· Las Piñas City</span>
+    <span>✦ Soft Serve Churros</span>
+    <span>· Frozen Yogurt</span>
+    <span>· Classic Churros</span>
+    <span>· Hot Drinks</span>
+    <span>· Open Until Midnight</span>
+    <span>· Las Piñas City</span>
+  </div>
+</div>
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-header reveal">
