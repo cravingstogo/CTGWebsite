@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cravings To Go</title>
+<title>Cravings To Go │ Mobile Version </title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
@@ -144,106 +144,28 @@ body {
 
 @media (max-width: 768px) {
   .menu-toggle { display: block; }
-
-  /* ── Slide-down panel ── */
   .nav-links {
     position: absolute;
     top: var(--nav-h); right: 0;
     background: rgba(26, 10, 15, 0.97);
     border: 1px solid rgba(255,255,255,0.08);
-    width: 260px;
+    width: 240px;
     flex-direction: column;
     align-items: flex-start;
-    padding: 8px 0; gap: 0;
-    border-radius: 0 0 18px 18px;
-    /* Use clip-path instead of overflow:hidden so the sub-dropdown is never clipped */
-    max-height: 0;
-    overflow: hidden;
-    visibility: hidden;
-    transition: max-height 0.38s var(--ease-out), visibility 0.38s;
+    padding: 12px 0; gap: 0;
+    border-radius: 0 0 16px 16px;
+    max-height: 0; overflow: hidden; visibility: hidden;
+    transition: max-height 0.35s var(--ease-out), visibility 0.35s;
   }
-  /* Tall enough to hold all items + expanded sub-menu */
-  .nav-links.show { max-height: 640px; visibility: visible; }
-
-  .nav-links > a,
-  .nav-links > .dropdown > a,
-  .nav-links > .order-btn-wrap > a {
+  .nav-links.show { max-height: 400px; visibility: visible; }
+  .nav-links a {
     width: 100%; padding: 13px 22px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
     color: rgba(255,255,255,0.85) !important;
-    display: flex; align-items: center; justify-content: space-between;
   }
-  .nav-links > a:last-child { border-bottom: none; }
-
-  /* ── Inline accordion dropdown on mobile ── */
-  .dropdown { width: 100%; }
-  .dropdown > a {
-    width: 100%; padding: 13px 22px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    color: rgba(255,255,255,0.85) !important;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-
-  /* Chevron icon inside the Menu trigger */
-  .dropdown > a .dd-chevron {
-    display: inline-block;
-    width: 14px; height: 14px;
-    stroke: rgba(255,255,255,0.6);
-    fill: none; stroke-width: 2.2;
-    stroke-linecap: round; stroke-linejoin: round;
-    flex-shrink: 0;
-    transition: transform 0.28s var(--ease-out);
-  }
-  .dropdown.open > a .dd-chevron { transform: rotate(180deg); }
-
-  /* Sub-menu items — inline, NOT absolute */
-  .dropdown-content {
-    position: static !important;
-    transform: none !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    background: rgba(255,255,255,0.04) !important;
-    border: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    min-width: unset !important;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.32s var(--ease-out);
-  }
-  .dropdown.open .dropdown-content { max-height: 300px; }
-
-  .dropdown-content a {
-    padding: 11px 22px 11px 38px !important;
-    font-size: 12px !important;
-    color: rgba(255,255,255,0.58) !important;
-    border-bottom: 1px solid rgba(255,255,255,0.04) !important;
-    letter-spacing: 0.8px !important;
-  }
-  .dropdown-content a:last-child { border-bottom: none !important; }
-  .dropdown-content a:hover,
-  .dropdown-content a:active {
-    background: rgba(232,23,90,0.14) !important;
-    color: var(--pink-light) !important;
-  }
-  .dropdown-content a::after { display: none !important; }
-
-  /* Order button row */
-  .nav-links .order-btn {
-    margin: 10px 16px 6px;
-    width: calc(100% - 32px);
-    text-align: center;
-    display: block;
-  }
-
+  .nav-links a:last-child { border-bottom: none; }
   .navbar.scrolled .nav-links { background: rgba(253,240,245,0.98); }
-  .navbar.scrolled .nav-links > a,
-  .navbar.scrolled .dropdown > a { color: var(--text) !important; }
-  .navbar.scrolled .dropdown-content { background: rgba(232,23,90,0.05) !important; }
-  .navbar.scrolled .dropdown-content a { color: var(--muted) !important; }
-  .navbar.scrolled .dropdown-content a:hover { color: var(--pink) !important; }
-  .navbar.scrolled .dropdown > a .dd-chevron { stroke: var(--muted); }
+  .navbar.scrolled .nav-links a { color: var(--text) !important; }
 }
 @media (max-width: 480px) { .nav-links { width: 100%; border-radius: 0; } }
 
@@ -770,25 +692,81 @@ footer span { color: var(--pink); }
 }
 
 /* ══════════════════════════════════
-   CHAT BUTTON
-══════════════════════════════════ */
+    CHAT BUTTON
+════════════════════════════════ */
 .chat-btn {
-  position: fixed; bottom: 20px; right: 20px;
-  background: var(--pink); color: white;
-  font-size: 22px;
-  width: 55px; height: 55px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--pink);
+  color: white;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 24px rgba(232,23,90,0.4);
   z-index: 1000;
-  animation: floatButton 3s ease-in-out infinite;
-  transition: transform 0.2s, background 0.2s;
+  animation: floatButton 3.5s ease-in-out infinite;
+  transition: background 0.2s, transform 0.2s var(--ease-spring), box-shadow 0.2s;
 }
-.chat-btn:hover { background: var(--pink-light); transform: translateY(-4px) scale(1.08); }
+.chat-btn:hover {
+  background: var(--pink-light);
+  transform: scale(1.12) translateY(-2px) !important;
+  box-shadow: 0 10px 32px rgba(232,23,90,0.5);
+  animation-play-state: paused;
+}
+.chat-btn svg {
+  width: 24px; height: 24px;
+  stroke: white;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 @keyframes floatButton {
   0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-5px); }
+  50%       { transform: translateY(-6px); }
 }
+
+/* Chat tooltip */
+.chat-btn::before {
+  content: 'Find us on Facebook';
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  background: var(--dark);
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 7px 14px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s var(--ease-out);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+.chat-btn::after {
+  content: '';
+  position: absolute;
+  right: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  border: 5px solid transparent;
+  border-left-color: var(--dark);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s var(--ease-out);
+}
+.chat-btn:hover::before,
+.chat-btn:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
 
 /* ══════════════════════════════════
    CARD PRESS RIPPLE
@@ -816,13 +794,8 @@ footer span { color: var(--pink); }
   <div class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</div>
   <div class="nav-links" id="navLinks">
     <a href="#home">Home</a>
-    <div class="dropdown" id="navDropdown">
-      <a href="#menu" id="dropdownTrigger">
-        Menu
-        <svg class="dd-chevron" viewBox="0 0 24 24" aria-hidden="true">
-          <polyline points="6 9 12 15 18 9"/>
-        </svg>
-      </a>
+    <div class="dropdown">
+      <a href="#menu">Menu ▾</a>
       <div class="dropdown-content">
         <a href="#SoftServeChurro">Soft Serve Churros</a>
         <a href="#CChurros">Classic Churros</a>
@@ -1171,7 +1144,6 @@ footer span { color: var(--pink); }
   </div>
 </div>
 
-<a href="https://www.facebook.com/cravingsfortogo" class="chat-btn" target="_blank" aria-label="Chat on Facebook">💬</a>
 
 <script>
 /* ══════════════════════════════════
@@ -1189,30 +1161,11 @@ menuToggle.addEventListener('click', () => {
   const open = navLinks.classList.toggle('show');
   menuToggle.textContent = open ? '✕' : '☰';
   menuToggle.setAttribute('aria-expanded', open);
-  /* Collapse sub-dropdown when main nav closes */
-  if (!open) navDropdown.classList.remove('open');
 });
 
-/* ── Mobile dropdown accordion toggle ── */
-const navDropdown    = document.getElementById('navDropdown');
-const dropdownTrigger = document.getElementById('dropdownTrigger');
-
-dropdownTrigger.addEventListener('click', (e) => {
-  /* On mobile, intercept and toggle accordion; on desktop, let it navigate */
-  if (window.innerWidth <= 768) {
-    e.preventDefault();
-    e.stopPropagation();
-    navDropdown.classList.toggle('open');
-  }
-});
-
-/* Close everything when any nav link is tapped */
 navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', (e) => {
-    /* Skip the dropdown trigger itself (handled above) */
-    if (link === dropdownTrigger) return;
+  link.addEventListener('click', () => {
     navLinks.classList.remove('show');
-    navDropdown.classList.remove('open');
     menuToggle.textContent = '☰';
     menuToggle.setAttribute('aria-expanded', 'false');
   });
@@ -1373,5 +1326,9 @@ modal.addEventListener('transitionend', () => {
   }
 });
 </script>
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/05/29/08/20260529081543-M8IH94OW.js" defer></script>
+    
+	
 </body>
 </html>
